@@ -1,0 +1,78 @@
+<div class="row">
+	<!-- FORM -->
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body p-4">
+        <form>
+          Cadena a buscar <input id="searchTerm" type="text" onkeyup="doSearch()" />
+      </form>
+        <!-- FORM -->
+        <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+		<!-- THE Id's Employee -->
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+
+	          <div class="form-group">
+	            <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name"
+	              placeholder="nombre del paciente" class="form-control">
+	          </div>
+
+	          <div class="form-group">
+	            <div class="input-field col-s12">
+	              <input type="text" name="azucar" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.azucar"
+	                placeholder="azucar" class="form-control">
+	            </div>
+	          </div>
+
+	          <div class="form-group">
+	            <input type="text" name="grasa" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.grasa"
+	              placeholder="grasa" class="form-control">
+	          </div>
+
+	          <div class="form-group">
+	            <div class="input-field col-s12">
+	              <input type="number" name="oxigeno" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.oxigeno"
+	                value="0" placeholder="oxigeno" class="form-control">
+	            </div>
+	          </div>
+
+	          <button class="btn btn-primary mr-2" style="margin: 10px" (click)="resetForm(employeeForm)">Limpiar</button>
+	          <button class="btn btn-secondary">Guardar</button>
+	      </form>
+	    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+	<div class="col-md-8">
+		<table class="table table-striped" id="datos">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Nº de Azucar</th>
+					<th>Nº de Grasa</th>
+					<th>Nº de Oxigeno</th>
+         			 <th>Riesgo</th>
+					<th>Editar/Eliminar</th>
+				</tr>
+			</thead>
+			<thead>
+				<tr *ngFor="let employee of employeeService.employees">
+					<td>{{employee.name}}</td>
+				    <td>{{employee.azucar}}</td>
+				    <td>{{employee.grasa}}</td>
+				    <td>{{employee.oxigeno}}</td>
+            <td>{{employee.riesgo}}</td>
+				    <td>
+			          <button (click)="editEmployee(employee)" class="btn btn-secondary btn-sm">
+			            Editar
+			          </button>
+			          <button class="btn btn-danger btn-sm" (click)="deleteEmployee(employee._id!, employeeForm)">
+			            Eliminar
+			          </button>
+				    </td>
+
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
